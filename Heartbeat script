@@ -4,12 +4,48 @@
 #!/bin/sh
 
 #Heartbeat Check 
-ping -c 2 "local_IP" &> /dev/null && curl -fsS -m 10 --retry 5 -o /dev/null "Healthchecks.io httpget" || echo "Task Failure statement"
+
+ping -c 1 172.16.1.13 &> /dev/null && curl -fsS -m 10 -o /dev/null "Healthcheck httpget URL" && echo $(date) "- Status Success: Big Cabin Station " || echo $(date) "- Status Failure Big Cabin Station "
 
 #Example
-ping -c 1 172.16.1.2 &> /dev/null && curl -fsS -m 10 --retry 5 -o /dev/null https://hc-ping.com/2603f372-67e0-4092-94e6-aaaaaaaaaaa || echo "Server 1 Failure"
-ping -c 1 172.16.1.3 &> /dev/null && curl -fsS -m 10 --retry 5 -o /dev/null  https://hc-ping.com/feff1c5b-0d91-4e67-80ec-bbbbbbbbbb || echo "Server 2 Failure"
-ping -c 1 172.16.1.4 &> /dev/null && curl -fsS -m 10 --retry 5 -o /dev/null https://hc-ping.com/fde3ae63-23a9-4061-993b-ccccccccccc || echo "Server 3 Faulure"
+#!/bin/sh
+##Log Success/Failure to file
+exec > >(tee -a /home/*USERACCT*/monitoring.log) 2>&1
+
+#Big Cabin AP
+ping -c 1 172.16.1.13 &> /dev/null && curl -fsS -m 10 -o /dev/null https://hc-ping.com/####### && echo $(date) "- Status Success: Big Cabin Station " || echo $(date) "- Status Failure Big Cabin Station "
+
+#Rumples Wifi6 Router
+ping -c 1 172.16.1.2 &> /dev/null && curl -fsS -m 10 -o /dev/null  https://hc-ping.com/####### && echo $(date) "- Status Success: Rumples Wifi6 " || echo $(date) "- Status Failure: Rumples Wifi6 "
+
+#Gray Cabin Wifi6 Router
+ping -c 1 172.16.1.3 &> /dev/null && curl -fsS -m 10 -o /dev/null  https://hc-ping.com/####### && echo $(date) "- Status Success: Gray Cabin Wifi6 " || echo $(date) "- Status Failure: Gray Cabin Wifi6 "
+
+##Cozy Cottage P2P Station to Rumples AP
+ping -c 1 172.16.1.11 &> /dev/null && curl -fsS -m 10 -o /dev/null https://hc-ping.com/####### && echo $(date) "- Status Success: Cozy Cottage P2P Station to Rumples AP " || echo $(date) "- Status Failure: Cozy Cottage P2P Station to Rumples AP "
+
+##Cozy Cabin PtMP Station
+ping -c 1 172.16.1.15 &> /dev/null && curl -fsS -m 10 -o /dev/null https://hc-ping.com/####### && echo $(date) "- Status Success: Cozy Cottage P2p Station to Gray Cabin " || echo $(date) "- Status Failure: Cozy Cottage P2p Station to Gray Cabin "
+
+##Rumples P2P AP
+ping -c 1 172.16.1.10 &> /dev/null && curl -fsS -m 10 -o /dev/null  https://hc-ping.com/####### && echo $(date) "- Status Success: Rumples P2P AP " || echo $(date) "- Status Failure: Rumples P2P AP "
+
+##Gray Cabin P2P AP
+ping -c 1 172.16.1.14 &> /dev/null && curl -fsS -m 10 -o /dev/null https://hc-ping.com/####### && echo $(date) "- Status Success: Gray Cabin P2P AP " || echo $(date) "- Status Failure: Gray Cabin P2P AP "
+
+#Rumples Wifi Extender
+ping -c 1 172.16.1.250 &> /dev/null && curl -fsS -m 10 -o /dev/null https://hc-ping.com/####### && echo $(date) "- Status Success: Gray Cabin P2P AP " || echo $(date) "- Status Failure: Gray Cabin P2P AP "
+
+##Cozy Cabin Wifi Extender
+ping -c 1 172.16.1.251 &> /dev/null && curl -fsS -m 10 -o /dev/null https://hc-ping.com/####### && echo $(date) "- Status Success: Cozy Cabin Wifi Extender " || echo $(date) "- Status Failure: Cozy Cabin Wifi Extender "
+ 
+##Arcade Wifi Extender
+ping -c 1 172.16.1.252 &> /dev/null && curl -fsS -m 10 -o /dev/null https://hc-ping.com/####### && echo $(date) "- Status Success: Arcade Wifi Extender " || echo $(date) "- Status Failure: Arcade Wifi Extender "
+
+##Big Cabin Wifi 6 Router
+ping -c 1 172.16.1.4 &> /dev/null && curl -fsS -m 10 -o /dev/null https://hc-ping.com/####### && echo $(date) "- Status Success: Big Cabin Wifi 6 Router " || echo $(date) "- Status Failure: Big Cabin Wifi 6 Router "
+
+
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #Crontab to run heartbeat script every 2 minutes
